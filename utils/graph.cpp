@@ -25,8 +25,8 @@ Graph::Graph(Edge edges[], int e_count, int v_count) {
 Graph::~Graph() {
   for (int i = 0; i < size; i++) {
     delete[] head[i];
-    delete[] head;
   }
+  delete[] head;
 }
 
 Node* Graph::addNode(int value, int weight, Node* head) {
@@ -43,12 +43,12 @@ void Graph::display(ostream* output) {
     Node* currentNode = this->head[i];
 
     while (currentNode != nullptr) {
-      if (i > 0) {
-        *output << endl;
-      } 
-
       *output << "(" << i + 1 << ", " << currentNode->value + 1 << ", " << currentNode->cost << ") ";
       currentNode = currentNode->next;
+    }
+    
+    if (this->head[i] != nullptr) {
+      *output << endl;
     }
   }
 }

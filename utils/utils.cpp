@@ -49,6 +49,6 @@ void help_arguments(string top_text, bool start, bool end) {
     cout << "-i        : start vertex" << endl;
   }
   if (end) {
-    cout << "-l        : final vertex";
+    cout << "-l        : final vertex" << endl;
   }
 }
