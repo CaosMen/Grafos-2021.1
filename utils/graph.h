@@ -23,6 +23,8 @@ class Graph {
     Node* addNode(int value, int weight, Node* head);
 
     void display(ostream* output);
+
+    int getSize();
 };
 
 Graph create_graph(istream* input);
