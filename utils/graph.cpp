@@ -53,10 +53,6 @@ void Graph::display(ostream* output) {
   }
 }
 
-int Graph::getSize() {
-  return this->size;
-}
-
 Graph create_graph(istream* input) {
   int v_count, e_count;
   *input >> v_count >> e_count;

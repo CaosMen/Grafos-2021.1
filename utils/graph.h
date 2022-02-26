@@ -24,7 +24,7 @@ class Graph {
 
     void display(ostream* output);
 
-    int getSize();
+    int getSize() { return this->size; };
 };
 
 Graph create_graph(istream* input);
