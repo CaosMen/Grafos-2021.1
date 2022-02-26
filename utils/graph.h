@@ -27,6 +27,6 @@ class Graph {
     int getSize() { return this->size; };
 };
 
-Graph create_graph(istream* input);
+Graph create_graph(istream* input, bool undirected = false);
 
 #endif

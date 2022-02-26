@@ -53,15 +53,19 @@ void Graph::display(ostream* output) {
   }
 }
 
-Graph create_graph(istream* input) {
+Graph create_graph(istream* input, bool undirected) {
   int v_count, e_count;
   *input >> v_count >> e_count;
+
+  if (undirected) {
+    e_count *= 2;
+  }
 
   string line;
   getline(*input, line);
 
   Edge edges[e_count] = {};
-  for (int i = 0; i < e_count; i++) {
+  for (int i = 0; i < e_count; i += undirected ? 2 : 1) {
     getline(*input, line);
     
     istringstream line_cin(line);
@@ -69,6 +73,10 @@ Graph create_graph(istream* input) {
     line_cin >> src >> dest >> weight;
 
     edges[i] = {src - 1, dest - 1, weight};
+
+    if (undirected) {
+      edges[i + 1] = {dest - 1, src - 1, weight};
+    }
   }
 
   return Graph(edges, e_count, v_count);
