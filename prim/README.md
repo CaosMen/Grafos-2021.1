@@ -32,33 +32,24 @@ Obs: Para maior conveniência, utilizar um arquivo de entrada (como o ``arquivo-
 
 O comando base de execução do algoritmo é (após compilado):
 
-``./dijkstra``
+``./prim``
 
 Como citado acima, é conveniente utilizar um arquivo de entrada e informar através do parâmetro ``-f``. Também é possível informar um arquivo para a saída com o parâmetro ``-o``.
 
-Para indicar os vértices de início e fim, utilizar ``-i`` e ``-l``, respectivamente, seguidos de um inteiro entre 1 e v. O parâmetro ``-l`` é opcional e se não informado serão calculadas as distâncias entre o vértice informado após ``-i`` e todos os outros. Também é possível exibir o caminho com o parâmetro ``-s``, que, de forma análoga, mostra apenas o caminho para o vértice final se ``-l`` for informado e para todos os outros se não for. Para ajuda durante a execução, utilizar ``-h``
+Para indicar o vértice de início utilize ``-i``, seguido de um inteiro entre 1 e v. Também é possível exibir a árvore com o parâmetro ``-s``. Para ajuda durante a execução, utilizar ``-h``.
 
-Logo, uma execução do algoritmo informando o vértice inicial (obrigatório) e um arquivo de entrada (da entrada de exemplo), além de pedir a solução (caminho encontrado) seria do tipo:
+Logo, uma execução do algoritmo informando o vértice inicial (obrigatório) e um arquivo de entrada (da entrada de exemplo), além de pedir a solução (árvore encontrada) seria do tipo:
 
-``./dijkstra -f arquivo-entrada.dat -i 1 -s``
+``./prim -f arquivo-entrada.dat -i 1 -s``
 
 Com o retorno:
 
 ```
-1 : 0
-1 -> 2 : 5
-1 -> 3 : 4
-1 -> 4 : 2
-1 -> 3 -> 5 : 10
-1 -> 4 -> 6 : 3
+(1,3) (1,4) (3,5) (4,2) (4,6)
 ```
 
 ## Saída
 
 A saída pode variar de acordo com os parâmetros informados:
- 1. Se ``-l`` for informado e ``-s`` for utilizado, será informada uma linha no formato ``i -> ... -> v -> ... -> l : d``, onde i é o início e l é o final do caminho, com os vértices v que fazem parte deste caminho, além de d, que é a distância total.
- 2. Se ``-l`` for informado e ``-s`` não for utilizado, será um inteiro indicando a distância do caminho encontrado
- 3. Se ``-l`` não for informado e ``-s`` for utilizado, será informada uma linha para cada vértice do grafo, no formato ``i -> ... -> v -> ... -> l : d``, onde i é o início e l é o final do caminho, com os vértices v que fazem parte deste caminho, além de d, que é a distância total.
- 4. Se ``-l`` não for informado e ``-s`` não for utilizado, serão pares do tipo ``a:b``, onde a é um vértice e b a distância entre o vértice inicial e a. 
- 
- Obs: se o caminho não existir, será informado -1 no lugar da distância nos casos 3 e 4. Nos casos 1 e 2 será informada uma mensagem: ``There is not a path available between {i} and {l}!``
+ 1. Se ``-s`` for utilizado, será informada uma linha no formato ``(a,b) (a,c) ... (b, a) ... (v, v)``, onde a, b, c e v são vértices que formam arestas na árvore geradora mínima.
+ 2. Se ``-s`` não for utilizado, será mostrada apenas o custo da árvore geradora mínima.
