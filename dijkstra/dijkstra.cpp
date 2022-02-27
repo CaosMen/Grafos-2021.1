@@ -10,49 +10,49 @@ using namespace std;
 #include "../utils/graph.h"
 
 void dijkstra(Graph* graph, int* distance, int* predecessor, int start) {
-      int gSize, count, vertex, adjacent;
-      
-      gSize = graph->getSize();
-      count = gSize;
-    
-      int visited[gSize];
-      
-      for (int i = 0; i < gSize; i++) {
-        predecessor[i] = -1;
-        distance[i] = -1;
-        visited[i] = 0;
+  int gSize, count, vertex, adjacent;
+  
+  gSize = graph->getSize();
+  count = gSize;
+
+  int visited[gSize];
+  
+  for (int i = 0; i < gSize; i++) {
+    predecessor[i] = -1;
+    distance[i] = -1;
+    visited[i] = 0;
+  }
+
+  distance[start] = 0;
+
+  while(count > 0) {
+    vertex = findShorterDistance(distance, visited, gSize);
+
+    if(vertex == -1) {
+      break;
+    }
+
+    visited[vertex] = 1;
+    count--;
+
+    Node* currentNode = graph->getHead()[vertex];        
+
+    while (currentNode != nullptr) {
+      adjacent = currentNode->value;
+
+      if(distance[adjacent] < 0) {
+        distance[adjacent] = distance[vertex] + currentNode->cost;
+        predecessor[adjacent] = vertex;
+      } else {
+        if(distance[adjacent] > distance[vertex] + currentNode->cost) {
+          distance[adjacent] = distance[vertex] + currentNode->cost;
+          predecessor[adjacent] = vertex;
+        }
       }
 
-      distance[start] = 0;
-
-      while(count > 0) {
-        vertex = findShorterDistance(distance, visited, gSize);
-
-        if(vertex == -1) {
-          break;
-        }
-
-        visited[vertex] = 1;
-        count--;
-
-        Node* currentNode = graph->getHead()[vertex];        
-
-        while (currentNode != nullptr) {
-          adjacent = currentNode->value;
-
-          if(distance[adjacent] < 0) {
-            distance[adjacent] = distance[vertex] + currentNode->cost;
-            predecessor[adjacent] = vertex;
-          } else {
-            if(distance[adjacent] > distance[vertex] + currentNode->cost) {
-              distance[adjacent] = distance[vertex] + currentNode->cost;
-              predecessor[adjacent] = vertex;
-            }
-          }
-
-          currentNode = currentNode->next;
-        }
-      }      
+      currentNode = currentNode->next;
+    }
+  }      
 }
 
 int findShorterDistance(int* distance, int* visited, int gSize) {

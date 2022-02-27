@@ -45,15 +45,15 @@ int main(int argc, char** argv) {
                 *args.output << i+1 << ":" << distance[i] << " ";
               }
               *args.output << endl;
-            }                            
+            }
         }        
       } else {
-        *args.output << "Missing start vertex argument (-i)!" << endl;    
+        cout << "Missing start vertex argument (-i)!" << endl;    
       }
 
     }
   } else {
-    *args.output << "The arguments entered are invalid!" << endl;
+    cout << "The arguments entered are invalid!" << endl;
   }
 
   return 0;
