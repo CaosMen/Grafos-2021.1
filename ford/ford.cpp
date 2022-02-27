@@ -7,10 +7,10 @@ using namespace std;
 
 #include "../utils/graph.h"
 
-void print_solution(Graph* graph, int** r_graph, int v_count, ostream* output) {
+void print_solution(int** r_graph, int v_count, ostream* output) {
   for (int i = 0; i < v_count; i++) {
     for (int j = 0; j < v_count; j++) {
-      if (graph->hasEdge(i, j) || graph->hasEdge(j, i)) {
+      if (r_graph[i][j] != INT_MAX) {
         *output << "(" << i + 1 << "," << j + 1 << ") " << r_graph[i][j] << endl;
       }
     }
@@ -21,13 +21,19 @@ int** residual_graph(Graph* graph) {
   int v_count = graph->getSize();
 
   int** r_graph = new int * [v_count];
+  for (int i = 0; i < v_count; i++) {
+    r_graph[i] = new int[v_count];
+    for (int j = 0; j < v_count; j++) {
+      r_graph[i][j] = INT_MAX;
+    }
+  }
   
   for (int i = 0; i < v_count; i++) {
     Node* currentNode = graph->getHead()[i];
 
-    r_graph[i] = new int[v_count];
     while (currentNode != nullptr) {
       r_graph[i][currentNode->value] = currentNode->cost;
+      r_graph[currentNode->value][i] = 0;
 
       currentNode = currentNode->next;
     }
@@ -42,7 +48,8 @@ bool dfs(int** r_graph, int src, int dest, int v_count, int visited[], int path[
   }
 
   for (int i = 0; i < v_count; i++) {
-    if (r_graph[src][i] > 0 && visited[i] == 0) {
+    int current = r_graph[src][i];
+    if ((current > 0 && current < INT_MAX) && visited[i] == 0) {
       path[src] = i;
       visited[i] = 1;
 
@@ -90,7 +97,7 @@ int ford(Graph* graph, int src, int dest, bool solution, ostream* output) {
   }
 
   if (solution) {
-    print_solution(graph, r_graph, v_count, output);
+    print_solution(r_graph, v_count, output);
   }
 
   return max_flow;

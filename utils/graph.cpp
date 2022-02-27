@@ -58,20 +58,6 @@ Node* Graph::addNode(int value, int weight, Node* head) {
   return new_node;
 }
 
-bool Graph::hasEdge(int src, int dest) {
-  Node* currentNode = this->head[src];
-
-  while (currentNode != nullptr) {
-    if (currentNode->value == dest) {
-      return true;
-    }
-    
-    currentNode = currentNode->next;
-  }
-  
-  return false;
-}
-
 void Graph::display(ostream* output) {
   for (int i = 0; i < this->size; i++) {
     Node* currentNode = this->head[i];

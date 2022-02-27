@@ -22,7 +22,6 @@ class Graph {
     Node** getHead() { return this->head; };
 
     Node* addNode(int value, int weight, Node* head);
-    bool hasEdge(int src, int dest);
 
     void display(ostream* output);
 };
