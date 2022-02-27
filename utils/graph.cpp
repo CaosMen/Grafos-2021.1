@@ -1,3 +1,4 @@
+#include <iostream>
 #include <fstream>
 #include <sstream>
 using namespace std;
@@ -17,8 +18,8 @@ Graph::Graph(Edge edges[], int e_count, int v_count) {
     int dest_ver = edges[i].dest;
     int weight_ver = edges[i].weight;
 
-    Node* newNode = addNode(dest_ver, weight_ver, this->head[src_ver]);
-    this->head[src_ver] = newNode;
+    Node* new_node = addNode(dest_ver, weight_ver, this->head[src_ver]);
+    this->head[src_ver] = new_node;
   }
 }
 
@@ -33,23 +34,24 @@ Node* Graph::addNode(int value, int weight, Node* head) {
   Node* new_node = new Node;
   new_node->value = value;
   new_node->cost = weight;
+  new_node->next = nullptr;
 
-  if (head == nullptr) {
-    new_node->next = head;
-  } else {
-    if (head->cost <= new_node->cost) {
+  if (head != nullptr) {
+    if (head->cost < new_node->cost) {
       new_node->next = head;
     } else {
       Node* prev_node = head;
       Node* current_node = prev_node->next;
 
-      while (current_node != nullptr && (current_node->cost <= new_node->cost)) {
+      while (current_node != nullptr && (current_node->cost < new_node->cost)) {
         prev_node = current_node;
         current_node = current_node->next;
       }
 
       prev_node->next = new_node;
       new_node->next = current_node;
+
+      return head;
     }
   }
 
