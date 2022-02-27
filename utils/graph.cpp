@@ -37,7 +37,7 @@ Node* Graph::addNode(int value, int weight, Node* head) {
   new_node->next = nullptr;
 
   if (head != nullptr) {
-    if (head->cost < new_node->cost) {
+    if (head->cost > new_node->cost) {
       new_node->next = head;
     } else {
       Node* prev_node = head;
