@@ -30,12 +30,30 @@ Graph::~Graph() {
 }
 
 Node* Graph::addNode(int value, int weight, Node* head) {
-  Node* newNode = new Node;
-  newNode->value = value;
-  newNode->cost = weight;
+  Node* new_node = new Node;
+  new_node->value = value;
+  new_node->cost = weight;
 
-  newNode->next = head;
-  return newNode;
+  if (head == nullptr) {
+    new_node->next = head;
+  } else {
+    if (head->cost <= new_node->cost) {
+      new_node->next = head;
+    } else {
+      Node* prev_node = head;
+      Node* current_node = prev_node->next;
+
+      while (current_node != nullptr && (current_node->cost <= new_node->cost)) {
+        prev_node = current_node;
+        current_node = current_node->next;
+      }
+
+      prev_node->next = new_node;
+      new_node->next = current_node;
+    }
+  }
+
+  return new_node;
 }
 
 void Graph::display(ostream* output) {

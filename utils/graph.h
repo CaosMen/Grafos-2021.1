@@ -18,13 +18,12 @@ class Graph {
     Graph(Edge edges[], int e_count, int v_count);
     ~Graph();
 
+    int getSize() { return this->size; };
     Node** getHead() { return this->head; };
 
     Node* addNode(int value, int weight, Node* head);
 
     void display(ostream* output);
-
-    int getSize() { return this->size; };
 };
 
 Graph create_graph(istream* input, bool undirected = false);
