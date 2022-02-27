@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
           if (args.initial != args.final) {
             int max_flow = ford(&graph, args.initial - 1, args.final - 1, args.solution, args.output);
 
-            if (args.solution == false) {
+            if (!args.solution) {
               *args.output << max_flow << endl;
             }
           } else {
@@ -30,12 +30,22 @@ int main(int argc, char** argv) {
         } else {
           for (int i = 0; i < graph.getSize(); i++) {
             if (i != (args.initial - 1)) {
-              int max_flow = ford(&graph, args.initial - 1, i, false, args.output);
+              if (args.solution) {
+                *args.output << "For the vertex: " << i + 1 << endl;
+              }
+
+              int max_flow = ford(&graph, args.initial - 1, i, args.solution, args.output);
               
-              *args.output << i + 1 << ":" << max_flow << " ";
+              if (!args.solution) {
+                *args.output << i + 1 << ":" << max_flow << " ";
+              } else if (i != graph.getSize() - 1) {
+                *args.output << endl;
+              }
             }
           }
-          *args.output << endl;
+          if (!args.solution) {
+            *args.output << endl;
+          }
         }
       } else {
         cout << "Missing start vertex argument (-i)!" << endl;
