@@ -7,17 +7,17 @@ using namespace std;
 #include "../utils/graph.h"
 
 int** solution_graph(int size) {
-  int** r_graph = new int * [size];
+  int** graph = new int * [size];
 
   for (int i = 0; i < size; i++) {
-    r_graph[i] = new int[size];
+    graph[i] = new int[size];
 
     for (int j = 0; j < size; j++) {
-      r_graph[i][j] = -INT_MAX;
+      graph[i][j] = -INT_MAX;
     }
   }
 
-  return r_graph;
+  return graph;
 }
 
 int prim(Graph* graph, int src, bool solution, ostream* output) {
